@@ -1,3 +1,6 @@
+Description
+It's a pipeline which allow you to store scrapy items in MongoDB database.
+
 Install
 1) pip install pymongo
 2) copy mongodb.py to pipelines directory in your scrapy directory
