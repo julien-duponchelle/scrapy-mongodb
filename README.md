@@ -8,15 +8,15 @@ Install
 2) copy mongodb.py to pipelines directory in your scrapy directory
 3) Configure your settings.py:
 
-  ITEM_PIPELINES = [
+    ITEM_PIPELINES = [
       'testscrapy.pipelines.mongodb.MongoDBPipeline',
-  ]
+    ]
 
-  MONGODB_SERVER = 'localhost'
-  MONGODB_PORT = 27017
-  MONGODB_DB = 'scrapy'
-  MONGODB_COLLECTION = 'items'
-  MONGODB_UNIQ_KEY = 'url'
+    MONGODB_SERVER = 'localhost'
+    MONGODB_PORT = 27017
+    MONGODB_DB = 'scrapy'
+    MONGODB_COLLECTION = 'items'
+    MONGODB_UNIQ_KEY = 'url'
 
 Licence
 =======
