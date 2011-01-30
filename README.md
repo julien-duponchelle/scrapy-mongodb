@@ -4,12 +4,13 @@ It's a pipeline which allow you to store scrapy items in MongoDB database.
 
 Install
 =======
-1) pip install pymongo
-2) copy mongodb.py to pipelines directory in your scrapy directory
-3) Configure your settings.py:
+   pip install "ScrapyMongoDB"
+
+Configure your settings.py:
+----------------------------
 
     ITEM_PIPELINES = [
-      'testscrapy.pipelines.mongodb.MongoDBPipeline',
+      'scrapy-mongodb.MongoDBPipeline',
     ]
 
     MONGODB_SERVER = 'localhost'
