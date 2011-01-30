@@ -9,6 +9,7 @@ Install
 
 Configure your settings.py:
 ----------------------------
+    import scrapymongodb
 
     ITEM_PIPELINES = [
       'scrapymongodb.MongoDBPipeline',
