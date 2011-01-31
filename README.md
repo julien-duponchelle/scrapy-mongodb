@@ -4,7 +4,6 @@ It's a pipeline which allow you to store scrapy items in MongoDB database.
 
 Install
 =======
-   pip install pymongo
    pip install "ScrapyMongoDB"
 
 Configure your settings.py:
@@ -18,6 +17,11 @@ Configure your settings.py:
     MONGODB_DB = 'scrapy'
     MONGODB_COLLECTION = 'items'
     MONGODB_UNIQ_KEY = 'url'
+
+Changelog
+=========
+0.2.1
+pip now install requires modules scrapy and pymongo
 
 Licence
 =======
