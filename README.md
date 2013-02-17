@@ -17,6 +17,8 @@ Configure your settings.py:
     MONGODB_DB = 'scrapy'
     MONGODB_COLLECTION = 'items'
     MONGODB_UNIQ_KEY = 'url'
+    MONGODB_ITEM_ID_FIELD = '_id'
+    MONGODB_SAFE = True
 
 Changelog
 =========
