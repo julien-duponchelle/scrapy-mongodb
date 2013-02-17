@@ -26,8 +26,9 @@ class MongoDBPipeline(object):
         self.uniq_key = settings.get('MONGODB_UNIQ_KEY', None)
         if isinstance(self.uniq_key, basestring) and self.uniq_key == "":
             self.uniq_key = None
-        if self.uniq_key is not None:
-            self.collection.create_index(self.uniq_key, unique=True)
+            
+        if self.uniq_key:
+            self.collection.ensure_index(self.uniq_key, unique=True)
 
     def process_item(self, item, spider):
         if self.uniq_key is None:
