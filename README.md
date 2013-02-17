@@ -22,6 +22,10 @@ Configure your settings.py:
 
 Changelog
 =========
+
+0.3.0
+Code improvements by Jordi Llonch (https://github.com/llonchj)
+
 0.2.1
 pip now install requires modules scrapy and pymongo
 
