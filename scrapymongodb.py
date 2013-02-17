@@ -19,6 +19,7 @@ from scrapy.conf import settings
 from scrapy import log
 
 MONGODB_SAFE = False
+MONGODB_ITEM_ID_FIELD = "_id"
 
 class MongoDBPipeline(object):
     def __init__(self):
@@ -26,6 +27,8 @@ class MongoDBPipeline(object):
         self.db = connection[settings['MONGODB_DB']]
         self.collection = self.db[settings['MONGODB_COLLECTION']]
         self.uniq_key = settings.get('MONGODB_UNIQ_KEY', None)
+        self.itemid = settings.get('MONGODB_ITEM_ID_FIELD', 
+            MONGODB_ITEM_ID_FIELD)
         self.safe = settings.get('MONGODB_SAFE', MONGODB_SAFE)
 
         if isinstance(self.uniq_key, basestring) and self.uniq_key == "":
@@ -42,6 +45,10 @@ class MongoDBPipeline(object):
                             {self.uniq_key: item[self.uniq_key]},
                             dict(item),
                             upsert=True, safe=self.safe)
+
+        # If item has _id field and is None
+        if self.itemid in item.fields and not item.get(self.itemid, None):
+            item[self.itemid] = result
 
         log.msg("Item %s wrote to MongoDB database %s/%s" %
                     (result, settings['MONGODB_DB'], 
