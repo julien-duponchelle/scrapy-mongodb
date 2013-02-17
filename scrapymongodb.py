@@ -18,12 +18,16 @@ import pymongo
 from scrapy.conf import settings
 from scrapy import log
 
+MONGODB_SAFE = False
+
 class MongoDBPipeline(object):
     def __init__(self):
         connection = pymongo.Connection(settings['MONGODB_SERVER'], settings['MONGODB_PORT'])
         self.db = connection[settings['MONGODB_DB']]
         self.collection = self.db[settings['MONGODB_COLLECTION']]
         self.uniq_key = settings.get('MONGODB_UNIQ_KEY', None)
+        self.safe = settings.get('MONGODB_SAFE', MONGODB_SAFE)
+
         if isinstance(self.uniq_key, basestring) and self.uniq_key == "":
             self.uniq_key = None
             
@@ -32,13 +36,15 @@ class MongoDBPipeline(object):
 
     def process_item(self, item, spider):
         if self.uniq_key is None:
-            self.collection.insert(dict(item))
+            result = self.collection.insert(dict(item), safe=self.safe)
         else:
-            self.collection.update(
+            result = self.collection.update(
                             {self.uniq_key: item[self.uniq_key]},
                             dict(item),
-                            upsert=True)  
-        log.msg("Item wrote to MongoDB database %s/%s" %
-                    (settings['MONGODB_DB'], settings['MONGODB_COLLECTION']),
+                            upsert=True, safe=self.safe)
+
+        log.msg("Item %s wrote to MongoDB database %s/%s" %
+                    (result, settings['MONGODB_DB'], 
+                    settings['MONGODB_COLLECTION']),
                     level=log.DEBUG, spider=spider)  
         return item
