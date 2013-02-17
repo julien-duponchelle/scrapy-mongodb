@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""MongoDB Pipeline for scrappy"""
+"""MongoDB Pipeline for scrapy"""
 
 import pymongo
 from scrapy.conf import settings
