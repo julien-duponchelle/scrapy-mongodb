@@ -43,7 +43,7 @@ class MongoDBPipeline(object):
         else:
             result = self.collection.update(
                             {self.uniq_key: item[self.uniq_key]},
-                            dict(item),
+                            { '$set': dict(item) },
                             upsert=True, safe=self.safe)
 
         # If item has _id field and is None
