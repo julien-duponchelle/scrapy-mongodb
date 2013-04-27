@@ -1,6 +1,6 @@
 from distutils.core import setup
 setup(name='ScrapyMongoDB',
-      version='0.3.0',
+      version='0.4.0',
       license='Apache License, Version 2.0',
       description='Scrapy pipeline which allow you to store scrapy items in MongoDB database.',
       author='Julien Duponchelle',
