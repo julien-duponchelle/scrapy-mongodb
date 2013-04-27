@@ -23,6 +23,10 @@ Configure your settings.py:
 Changelog
 =========
 
+0.4.0
+Update only those fields that are defined in the scrapy `Item` by Mikhail Fedosov (https://github.com/fedosov)
+
+
 0.3.0
 Code improvements by Jordi Llonch (https://github.com/llonchj)
 
