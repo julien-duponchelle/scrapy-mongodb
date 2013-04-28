@@ -23,6 +23,9 @@ Configure your settings.py:
 Changelog
 =========
 
+0.4.1
+Cancel use of deprecated settings import
+
 0.4.0
 Update only those fields that are defined in the scrapy `Item` by Mikhail Fedosov (https://github.com/fedosov)
 
