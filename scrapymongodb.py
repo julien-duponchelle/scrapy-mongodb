@@ -22,15 +22,14 @@ MONGODB_ITEM_ID_FIELD = "_id"
 
 class MongoDBPipeline(object):
     def __init__(self, mongodb_server, mongodb_port, mongodb_db, mongodb_collection, mongodb_uniq_key,
-                 mongodb_item_id_field, mongodb_safe):
-        connection = pymongo.Connection(mongodb_server, mongodb_port)
+                 mongodb_item_id_field):
+        connection = pymongo.MongoClient(mongodb_server, mongodb_port)
         self.mongodb_db = mongodb_db
         self.db = connection[mongodb_db]
         self.mongodb_collection = mongodb_collection
         self.collection = self.db[mongodb_collection]
         self.uniq_key = mongodb_uniq_key
         self.itemid = mongodb_item_id_field
-        self.safe = mongodb_safe
 
         if isinstance(self.uniq_key, basestring) and self.uniq_key == "":
             self.uniq_key = None
@@ -50,10 +49,10 @@ class MongoDBPipeline(object):
 
     def process_item(self, item, spider):
         if self.uniq_key is None:
-            result = self.collection.insert(dict(item), safe=self.safe)
+            result = self.collection.insert_one(dict(item))
         else:
-            result = self.collection.update({ self.uniq_key: item[self.uniq_key] }, { '$set': dict(item) },
-                                            upsert=True, safe=self.safe)
+            result = self.collection.update_one({ self.uniq_key: item[self.uniq_key] }, { '$set': dict(item) },
+                                            upsert=True)
 
         # If item has _id field and is None
         if self.itemid in item.fields and not item.get(self.itemid, None):
