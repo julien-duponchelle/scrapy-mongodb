@@ -17,7 +17,6 @@
 import pymongo
 from scrapy import log
 
-MONGODB_SAFE = False
 MONGODB_ITEM_ID_FIELD = "_id"
 
 class MongoDBPipeline(object):
@@ -43,8 +42,7 @@ class MongoDBPipeline(object):
         settings = crawler.settings
         return cls(settings.get('MONGODB_SERVER', 'localhost'), settings.get('MONGODB_PORT', 27017),
                    settings.get('MONGODB_DB', 'scrapy'), settings.get('MONGODB_COLLECTION', None),
-                   settings.get('MONGODB_UNIQ_KEY', None), settings.get('MONGODB_ITEM_ID_FIELD', MONGODB_ITEM_ID_FIELD),
-                   settings.get('MONGODB_SAFE', MONGODB_SAFE))
+                   settings.get('MONGODB_UNIQ_KEY', None), settings.get('MONGODB_ITEM_ID_FIELD', MONGODB_ITEM_ID_FIELD))
 
 
     def process_item(self, item, spider):
