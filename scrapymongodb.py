@@ -14,10 +14,12 @@
 
 """MongoDB Pipeline for scrapy"""
 
+import logging
 import pymongo
-from scrapy import log
 
 MONGODB_ITEM_ID_FIELD = "_id"
+
+logger = logging.getLogger(__name__)
 
 class MongoDBPipeline(object):
     def __init__(self, mongodb_server, mongodb_port, mongodb_db, mongodb_collection, mongodb_uniq_key,
@@ -56,6 +58,5 @@ class MongoDBPipeline(object):
         if self.itemid in item.fields and not item.get(self.itemid, None):
             item[self.itemid] = result
 
-        log.msg("Item %s wrote to MongoDB database %s/%s" % (result, self.mongodb_db, self.mongodb_collection),
-                level=log.DEBUG, spider=spider)
+        logger.debug("Item %s wrote to MongoDB database %s/%s, spider: %s" % (result.inserted_id, self.mongodb_db, self.mongodb_collection, spider.name))
         return item
