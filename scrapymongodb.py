@@ -58,5 +58,9 @@ class MongoDBPipeline(object):
         if self.itemid in item.fields and not item.get(self.itemid, None):
             item[self.itemid] = result
 
-        logger.debug("Item %s wrote to MongoDB database %s/%s, spider: %s" % (result.inserted_id, self.mongodb_db, self.mongodb_collection, spider.name))
+        logger.debug("Item %s wrote to MongoDB database %s/%s, spider: %s" % (
+            getattr(result, 'inserted_id', getattr(result, 'upserted_id')),
+            self.mongodb_db,
+            self.mongodb_collection,
+            spider.name))
         return item
