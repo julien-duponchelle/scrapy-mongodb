@@ -38,7 +38,7 @@ class MongoDBPipeline(object):
             self.uniq_key = None
 
         if self.uniq_key:
-            self.collection.ensure_index(self.uniq_key, unique=True)
+            self.collection.create_index(self.uniq_key, unique=True)
 
     @classmethod
     def from_crawler(cls, crawler):
