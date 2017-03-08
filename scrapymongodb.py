@@ -38,7 +38,7 @@ class MongoDBPipeline(object):
             self.uniq_key = None
 
         if self.uniq_key:
-            self.collection.ensure_index(self.uniq_key, unique=True)
+            self.collection.create_index(self.uniq_key, unique=True)
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -59,5 +59,8 @@ class MongoDBPipeline(object):
             item[self.item_id] = result
 
         logger.debug("Item %s wrote to MongoDB database %s/%s, spider: %s" % (
-            result.inserted_id, self.mongodb_db, self.mongodb_collection, spider.name))
+            getattr(result, 'inserted_id', getattr(result, 'upserted_id')),
+            self.mongodb_db,
+            self.mongodb_collection,
+            spider.name))
         return item
